@@ -42,13 +42,16 @@
         </div>
     </div>
     <input name="customer" v-model="search" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-    <button @click="searchCustomers" type="button" data-micromodal-trigger="modal-1" class="flex mx-auto text-white bg-teal-500 border-0 py-2 px-8 focus:outline-none hover:bg-teal-600 rounded text-lg">検索する</button>
+    <button @click="searchCustomers" type="button" data-micromodal-trigger="modal-1" class="flex mx-auto text-white bg-teal-500 border-0 py-2 px-8 focus:outline-none hover:bg-teal-600 rounded text-lg">
+        検索する
+    </button>
 </template>
 
 
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue'
+
 const search = ref('')
 const customers = reactive({})
 
@@ -68,7 +71,7 @@ const toggleStatus = () => {
 
 const searchCustomers = async () => {
     try {
-    await axios.get(`/api/searchCustomers/?search=${search.value}`)
+        await axios.get(`/api/searchCustomers/?search=${search.value}`)
         .then( res => {
             console.log(res.data)
             customers.value = res.data
@@ -84,7 +87,7 @@ const emit = defineEmits(['udpate:customerId'])
 
 const setCustomer = e => {
     search.value = e.kana
-    emis('update:customerId', e.id)
+    emit('update:customerId', e.id)
     toggleStatus()
 }
 </script>

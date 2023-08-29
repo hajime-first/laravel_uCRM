@@ -30,13 +30,13 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        // $customers = Customer::select('id', 'name', 'kana')->get();
+        $customers = Customer::select('id', 'name', 'kana')->get();
         $items = Item::select('id', 'name', 'price')
         ->where('is_selling', true)
         ->get();
 
         return Inertia::render('Purchases/Create', [
-            // 'customers' => $customers,
+            'customers' => $customers,
             'items' => $items
         ]);
     }
@@ -51,7 +51,7 @@ class PurchaseController extends Controller
     {
         // dd($request);
 
-        BD::beginTransaction();
+        DB::beginTransaction();
 
         try{
             $purchase = Purchase::create([
