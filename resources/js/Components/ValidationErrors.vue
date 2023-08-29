@@ -5,7 +5,12 @@ const props = defineProps({
     errors: Object
 })
 
-const hasErrors = computed(() => Object.keys(props.errors).length > 0);
+const hasErrors = computed(() => {
+    if (props.errors && typeof props.errors === 'object') {
+        return Object.keys(props.errors).length > 0;
+    }
+    return false;
+});
 </script>
 
 <template>
